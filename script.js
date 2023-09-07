@@ -1,7 +1,5 @@
 //voice selection
 const voiceSelect = document.querySelector("#voice-select");
-document.querySelector("#pause-button").addEventListener("click", pauseSpeech);
-document.querySelector("#play-button").addEventListener("click", playSpeech);
 
 const synth = window.speechSynthesis;
 let voices;
@@ -28,23 +26,6 @@ function addVoicesToSelect() {
   });
 }
 
-
-//FUNCTION to pause speech
-function pauseSpeech(e) {
-  e.preventDefault();
-  synth.pause();
-  document.querySelector("#pause-button").disabled = true;
-  document.querySelector("#play-button").disabled = false;
-}
-
-//FUNCTION to resume speech
-function playSpeech(e) {
-  e.preventDefault();
-  synth.resume();
-  document.querySelector("#pause-button").disabled = false;
-  document.querySelector("#play-button").disabled = true;
-}
-
 function onSubmit(e) {
   e.preventDefault();
 
@@ -63,21 +44,9 @@ function onSubmit(e) {
       utterThis.voice = voice;
     }
   });
-
-  //event listners for speech end and error
-
-  utterThis.onend = () => {
-    document.querySelector("#pause-button").disabled = true;
-    document.querySelector("#play-button").disabled = true;
-  };
-
-  utterThis.onerror = () => {
-    alert("An error occured while speaking");
-  };
-
+  
   // speak it out
   synth.speak(utterThis);
-  document.querySelector("#pause-button").disabled = false;
 }
 
 addVoicesToSelect();
