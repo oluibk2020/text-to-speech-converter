@@ -71,9 +71,15 @@ function onSubmit(e) {
     document.querySelector("#play-button").disabled = true;
   };
 
-  utterThis.onerror = () => {
-    alert("An error occured while speaking");
-  };
+  
+  try {
+    utterThis.onerror = () => {
+      alert("An error occured while speaking");
+    };
+    
+  } catch (error) {
+    console.log(error);
+  }
 
   // speak it out
   synth.speak(utterThis);
